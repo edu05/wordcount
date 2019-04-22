@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.api.TimestampedWord;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.runtime.state.filesystem.FsStateBackend;
+import org.apache.flink.streaming.api.environment.CheckpointConfig;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer;
 
@@ -20,6 +21,8 @@ public class AppWithKafka {
                 .setMaxParallelism(1)
                 .enableCheckpointing(30000)
                 .setStateBackend(new FsStateBackend("file:///C:/Users/eduardo/dev/wordcount/store"));
+
+        env.getCheckpointConfig().enableExternalizedCheckpoints(CheckpointConfig.ExternalizedCheckpointCleanup.RETAIN_ON_CANCELLATION);
 
         env.setStreamTimeCharacteristic(ProcessingTime);
         Properties properties = new Properties();
