@@ -1,4 +1,4 @@
-package edu.streaming;
+package edu.api;
 
 import java.util.Map;
 
@@ -8,8 +8,11 @@ import static java.time.ZonedDateTime.ofInstant;
 
 public class WordCountsSnapshot {
 
-    private final long snapshotTime;
-    private final Map<String, Integer> wordCounts;
+    private long snapshotTime;
+    private Map<String, Integer> wordCounts;
+
+    private WordCountsSnapshot(){
+    }
 
     public WordCountsSnapshot(long snapshotTime, Map<String, Integer> wordCounts) {
         this.snapshotTime = snapshotTime;
@@ -22,6 +25,14 @@ public class WordCountsSnapshot {
 
     public Map<String, Integer> getWordCounts() {
         return wordCounts;
+    }
+
+    public void setSnapshotTime(long snapshotTime) {
+        this.snapshotTime = snapshotTime;
+    }
+
+    public void setWordCounts(Map<String, Integer> wordCounts) {
+        this.wordCounts = wordCounts;
     }
 
     @Override

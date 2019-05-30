@@ -1,5 +1,6 @@
 package edu.streaming;
 
+import edu.api.WordCountsSnapshot;
 import org.apache.flink.api.common.functions.AggregateFunction;
 
 import java.util.HashMap;
