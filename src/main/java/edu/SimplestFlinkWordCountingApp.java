@@ -1,4 +1,4 @@
-package edu.stupid;
+package edu;
 
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.api.common.state.ValueState;
@@ -15,7 +15,6 @@ import org.apache.flink.util.Collector;
 import java.util.Properties;
 import java.util.UUID;
 
-import static edu.kafkaharness.KafkaProducer.PRODUCER_TOPIC;
 import static org.apache.flink.streaming.api.TimeCharacteristic.ProcessingTime;
 
 public class SimplestFlinkWordCountingApp {
@@ -32,10 +31,11 @@ public class SimplestFlinkWordCountingApp {
         properties.setProperty("bootstrap.servers", "localhost:9092");
         properties.setProperty("group.id", UUID.randomUUID().toString().substring(6));
 
-        FlinkKafkaConsumer<String> kafkaConsumer = new FlinkKafkaConsumer<>(PRODUCER_TOPIC, new SimpleStringSchema(), properties);
+        FlinkKafkaConsumer<String> kafkaConsumer = new FlinkKafkaConsumer<>("my-first-topic", new SimpleStringSchema(), properties);
         env.addSource(kafkaConsumer)
                 .assignTimestampsAndWatermarks(new AscendingTimestampExtractor<String>() {
                     private int counter = 0;
+
                     @Override
                     public long extractAscendingTimestamp(String element) {
                         return counter++;

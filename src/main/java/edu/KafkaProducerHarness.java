@@ -1,4 +1,4 @@
-package edu.stupid;
+package edu;
 
 import java.util.Arrays;
 import java.util.List;
